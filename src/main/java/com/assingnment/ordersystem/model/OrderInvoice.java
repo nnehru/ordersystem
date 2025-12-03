@@ -7,7 +7,7 @@ import lombok.Data;
 public class OrderInvoice {
 
     private String invoiceId;
-    private List<OrderItem> orderItems;
+    private Order order;
     private double gst;
     private double totalAfterTax;
 

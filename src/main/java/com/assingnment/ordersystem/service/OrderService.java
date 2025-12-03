@@ -25,6 +25,7 @@ public class OrderService {
         final List<OrderItem> orderItems = order.getOrderItems();
         if (CollectionUtils.isNotEmpty(orderItems)) {
             OrderInvoice orderInvoice = new OrderInvoice();
+            orderInvoice.setOrder(order);
             double grossAmt = 0;
             for (OrderItem orderItem : orderItems) {
                 grossAmt += orderItem.getMenuItem().getPriceIncGst() * orderItem.getQuantity();
@@ -32,7 +33,6 @@ public class OrderService {
             double gstRate = appliedGst / 100;
             double gst = grossAmt * gstRate / (1 + gstRate);
 
-            orderInvoice.setOrderItems(orderItems);
             orderInvoice.setInvoiceId("INV-" + order.getOrderId());
             orderInvoice.setTotalAfterTax(grossAmt);
             orderInvoice.setGst(gst);
